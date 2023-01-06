@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+*{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* navbar */
+.navigation{
+    background-color: #f1ebdf;
+    color: #555;
+    box-shadow: 1px 1px 5px 2px rgba(237, 237, 237, 0,50);
+        -webkit-box-shadow: 1px 1px 5px 2px rgba(237, 237, 237, 0,50);
+        -moz-box-shadow: 1px 1px 5px 2px rgba(237, 237, 237, 0,50);
+}
+
+.navigation .Brand h2{
+    font-family: 'Great Vibes', cursive;
+    font-weight: 600;
+    margin-top: 5%;
+    color: #555;
+}
+
+.navigation .Link{
+    color: #555;
+}
+.navigation .Link:hover{
+    color: #333;
+    font-weight: bold;
+}
+/* navbar */
+
+/* slide */
+.text-slide h3{
+    font-family: 'Great Vibes', cursive;
+    font-size: 40px;
+}
+/* slide */
+
+/* product */
+.konten-product{
+    margin-top: 10%;
+}
+
+.card-title{
+    font-size: 18px;
+    color: #757575;
+    font-weight: 300;
+}
+
+.card-text{
+    font-size: 12px;
+    color: #757575;
+    font-weight: 600;
+}
+
+.btn-order{
+    background-color: #9E7676 ;
+    border: none;
+    font-size: 14px;
+    word-spacing: 5px;
+    font-weight: 400;
+}
+
+.btn-order:hover{
+    background-color: #FFF8EA;
+    color: #9E7676;
+    font-weight: 600;
+}
+/* product */
+
+/* about */
+.card-label{
+    font-family: 'Great Vibes', cursive;
+    font-weight: 500;
+    margin-top: 5%;
+    color: #555;
+    font-size: 30px;
+}
+/* about */
+
+/* contact */
+.img-contact{
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+}
+/* contact */
+
+/* form order */
+.font-label{
+    color: #757575;
+    font-weight: 500;
+}
+
+.result{
+    background-color: #FFF8EA;;
+}
+
+.result-text{
+    line-height: 30px;
+}
+/* form order */
+
+/* footer */
+.footer{
+    background-color: #f1ebdf;
+    color: #555;
+}
+
+.footer-left h2{
+    font-family: 'Great Vibes', cursive;
+    font-weight: 500;
+    margin-top: 5%;
+    color: #555;
+    font-size: 30px;
+}
+
+.footer-left p{
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* footer */
+
+/* MEDIA SCREEN */
+@media screen and (max-width: 800px) and (min-width: 480px) {
+    .form-pemesanan h3, .product{
+        margin-top: 15%;
+    }
+  
+}
+
+/* MEDIA SCREEN */
