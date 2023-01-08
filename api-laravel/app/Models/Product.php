@@ -12,5 +12,5 @@ class Product extends Model
     protected $primaryKey = 'id';
     protected $keyType = 'integer';
     // use HasFactory;
-    protected $fillable = ['name','price','qty'];
+    protected $fillable = ['name','price','qty', 'image'];
 }

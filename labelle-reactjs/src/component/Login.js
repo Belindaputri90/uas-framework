@@ -73,8 +73,14 @@ export default function Login() {
         <Button variant="primary" type="submit">
           Submit
         </Button>
-        <p> Need an account? <a href="/register" class="stretched-link"> Register </a> </p>
       </Form>
+
+      {/* <div>
+        <span> Need an account? </span>
+        <a href="/register" class="stretched-link">
+          Register
+        </a>
+      </div> */}
     </div>
   );
 }
