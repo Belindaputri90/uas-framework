@@ -16,7 +16,7 @@ return $data;
 }
 
 public function create(Request $request){
-   
+// dd($request->all());
  $request->validate([
 'name' => 'required',
 'price' => 'required',
@@ -24,24 +24,8 @@ public function create(Request $request){
 'image' => 'required',
 ]);
 
-$product = new Product;
-
-$file = $request->file('image');
-$extension = $file->getClientOriginalExtension();
-$fileName = time() .' . '.$extension;
-$file->move('uploads/product/, $filename');
-
-$product->name = $request->input('name');
-$product->price = $request->input('price');
-$product->qty = $request->input('qty');
-$product->image = 'uploads/product/'.$fileName;
-
-//Product::create($request->all());
-//$product::create($request->all());
-$product->save();
+Product::create($request->all());
 return response()->json(['product' => Product::all()]);
-
-
 }
 
 public function update(Request $request){

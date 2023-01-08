@@ -92,6 +92,9 @@ export default function Product() {
                   <td>{data.price}</td>
                   <td>{data.qty}</td>
                   <td>{data.image}</td>
+                  {/* <td>
+                    <img src={data.image}></img>
+                  </td> */}
                   <td>
                     <Button onClick={(e) => edit(data.id)}>Edit</Button>
                     <Button
