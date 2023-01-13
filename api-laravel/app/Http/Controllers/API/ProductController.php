@@ -13,6 +13,7 @@ class ProductController extends Controller
 public function index(){
     $product = Product::all();
     return $product;
+    
 }
 
 public function create(Request $request){
@@ -28,14 +29,15 @@ $product = new Product;
     $product->name = $request->input('name');
     $product->price = $request->input('price');
     $product->qty = $request->input('qty');
+    $fileImage="";
 
-    if($request->hasFile('image'))
+    if($image = $request->file('image'))
         {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = time() .' . '.$extension;
-            $file->move('uploads/product/, $filename');
-            $product->image = 'uploads/product/'.$fileName;
+            //$file = $request->file('image');
+            $imagePath = 'uploads/product/';
+            $fileImage = time(). '.' .$image->getClientOriginalExtension();
+            $product->image = $image->move($imagePath, $fileImage);
+            
         }
 
         $product->save($request->all());

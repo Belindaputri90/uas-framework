@@ -92,12 +92,12 @@ export default function Product() {
                   <td>{data.name}</td>
                   <td>{data.price}</td>
                   <td>{data.qty}</td>
-                  {/* <td>
-                    <img src={`http://127.0.0.1:8000/api/${data.image}`} width="100px" />
-                  </td> */}
                   <td>
-                    <img src={data.image}></img>
+                    <img src={`http://127.0.0.1:8000/${data.image}`} width="100px" />
                   </td>
+                  {/* <td>
+                    <img src={data.image}></img>
+                  </td> */}
                   <td>
                     <Button onClick={(e) => edit(data.id)}>Edit</Button>
                     <Button
