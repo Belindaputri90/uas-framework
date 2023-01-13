@@ -11,21 +11,40 @@ class ProductController extends Controller
 
 {
 public function index(){
-$data = Product::get();
-return $data;
+    $product = Product::all();
+    return $product;
 }
 
 public function create(Request $request){
-// dd($request->all());
- $request->validate([
+
+$request->validate([
 'name' => 'required',
 'price' => 'required',
 'qty' => 'required',
-'image' => 'required',
+'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
 ]);
 
-Product::create($request->all());
-return response()->json(['product' => Product::all()]);
+$product = new Product;
+    $product->name = $request->input('name');
+    $product->price = $request->input('price');
+    $product->qty = $request->input('qty');
+
+    if($request->hasFile('image'))
+        {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = time() .' . '.$extension;
+            $file->move('uploads/product/, $filename');
+            $product->image = 'uploads/product/'.$fileName;
+        }
+
+        $product->save($request->all());
+        //$product::create($request->all());
+        return response()->json([
+            'status'=>200,
+            'messages'=>'Product Added successfully'
+        ]);
+
 }
 
 public function update(Request $request){
@@ -34,7 +53,7 @@ $request->validate([
 'name' => 'required',
 'price' => 'required',
 'qty' => 'required',
-'image' => 'required',
+'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
 ]);
 
 $update = Product::where('id',$request->id)->update($request->all());

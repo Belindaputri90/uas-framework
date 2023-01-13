@@ -9,6 +9,7 @@ export default function Product() {
   useEffect(() => {
     fetchProduct();
   }, []);
+  
   const fetchProduct = async (e) => {
     let token = sessionStorage.getItem("access_token");
     fetch("http://127.0.0.1:8000/api/get_prd", {
@@ -30,7 +31,7 @@ export default function Product() {
       );
   };
   const edit = (id) => {
-    history("/useredit", { state: { id } });
+    history("/productedit", { state: { id } });
   };
   const deletef = (id) => {
     Swal.fire({
@@ -91,10 +92,12 @@ export default function Product() {
                   <td>{data.name}</td>
                   <td>{data.price}</td>
                   <td>{data.qty}</td>
-                  <td>{data.image}</td>
                   {/* <td>
-                    <img src={data.image}></img>
+                    <img src={`http://127.0.0.1:8000/api/${data.image}`} width="100px" />
                   </td> */}
+                  <td>
+                    <img src={data.image}></img>
+                  </td>
                   <td>
                     <Button onClick={(e) => edit(data.id)}>Edit</Button>
                     <Button

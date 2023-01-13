@@ -1,39 +1,53 @@
 import React from "react";
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export default function AddProduct() {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [qty, setQty] = useState("");
-  const [image, setImage] = useState("");
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [productInput, setProduct] = useState({
+    name: "",
+    price: "",
+    qty: "",
+  });
+  const [picture, setPicture] = useState([]);
+  const [errorlist, setError] = useState([]);
   const history = useNavigate();
+
+  const handleInput = (e) => {
+    e.persist();
+    setProduct({ ...productInput, [e.target.name]: e.target.value });
+  };
+
+  const handleImage = (event) => {
+    setPicture(event.target.files[0]);
+  };
 
   const Addproduct = async (e) => {
     e.preventDefault();
+
     let token = sessionStorage.getItem("access_token");
-    let result = await fetch("http://127.0.0.1:8000/api/create_prd", {
+    var iniHeaders = new Headers();
+    iniHeaders.append("Authorization", "Bearer " + token);
+
+    const formData = new FormData();
+    formData.append("image", picture);
+    formData.append("name", productInput.name);
+    formData.append("price", productInput.price);
+    formData.append("qty", productInput.qty);
+
+    var requestOptions = {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        name: name,
-        price: price,
-        qty: qty,
-        image: image,
-      }),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        Swal.fire({
+      headers: iniHeaders,
+      body: formData,
+      redirect: "follow",
+    };
+
+    fetch("http://127.0.0.1:8000/api/create_prd", requestOptions).then(
+      (res) => {
+        if(true){
+          Swal.fire({
           position: "top-center",
           icon: "success",
           title: "Add Product Successfully",
@@ -41,7 +55,9 @@ export default function AddProduct() {
           timer: 1500,
         });
         history("/product");
-      });
+        }
+      }
+    );
   };
 
   return (
@@ -51,40 +67,43 @@ export default function AddProduct() {
           <Form.Label>Name </Form.Label>
           <Form.Control
             type="name"
+            name="name"
             placeholder="Enter Product Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={handleInput}
+            value={productInput.name}
           />
-          <Form.Text className="text-muted"></Form.Text>
+          <Form.Text className="text-danger">{errorlist.name}</Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPrice">
           <Form.Label>Price</Form.Label>
           <Form.Control
-            type="number"
+            type="text"
+            name="price"
             placeholder="Enter Product Price"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            onChange={handleInput}
+            value={productInput.price}
           />
-          <Form.Text className="text-muted"></Form.Text>
+          <Form.Text className="text-danger">{errorlist.price}</Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Quantity</Form.Label>
           <Form.Control
-            type="number"
+            type="text"
+            name="qty"
             placeholder="Enter Quantity Product"
-            value={qty}
-            onChange={(e) => setQty(e.target.value)}
+            onChange={handleInput}
+            value={productInput.qty}
           />
+          <Form.Text className="text-danger">{errorlist.qty}</Form.Text>
         </Form.Group>
         <Form.Group controlId="formFile" className="mb-3">
           <Form.Label>Image Product</Form.Label>
-          <Form.Control
-            type="file"
-            name="image"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-          />
+          <Form.Control type="file" name="image" onChange={handleImage} />
+          <Form.Text className="text-danger">{errorlist.image}</Form.Text>
         </Form.Group>
+        {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Check type="checkbox" label="Check me out" />
+        </Form.Group> */}
         <Button variant="primary" type="submit">
           Submit
         </Button>
